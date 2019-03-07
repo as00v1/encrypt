@@ -1,7 +1,10 @@
 package com.qiaohx.encryptapi.controller;
 
 import com.qiaohx.encryptapi.model.vo.DesEncryptRequestVo;
+import com.qiaohx.encryptapi.model.vo.DesEncryptResponseVo;
 import com.qiaohx.encryptutils.des.DESUtil;
+import com.qiaohx.encryptutils.util.BaseResponse;
+import com.qiaohx.encryptutils.util.ResponseUtil;
 import net.sf.json.JSONObject;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,19 +20,17 @@ import java.util.Base64;
 public class DESController {
 
     @PostMapping(value = "/getValue")
-    public String getValue(@RequestBody @Valid DesEncryptRequestVo requestStr, BindingResult bindingResult){
-//        if(bindingResult.hasErrors()){
-//            return bindingResult.getFieldError().getDefaultMessage();
-//        }
-        JSONObject resultJson = new JSONObject();
+    public BaseResponse getValue(@RequestBody @Valid DesEncryptRequestVo requestStr, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            bindingResult.getFieldError().getDefaultMessage();
+        }
         byte[] res = DESUtil.encrypt(requestStr.getContent(), requestStr.getKey());
 
-        resultJson.put("status", 200);
-        resultJson.put("message", "SUCCESS");
-        JSONObject data = new JSONObject();
-        data.put("code", 0);
-        data.put("content", new String(Base64.getEncoder().encode(res)));
-        resultJson.put("data", data);
-        return resultJson.toString();
+        DesEncryptResponseVo desEncryptResponseVo = new DesEncryptResponseVo();
+        desEncryptResponseVo.setCode(0);
+        desEncryptResponseVo.setContent(new String(Base64.getEncoder().encode(res)));
+        BaseResponse baseResponse = ResponseUtil.success(desEncryptResponseVo);
+
+        return baseResponse;
     }
 }
