@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class DesEncryptRequestVo implements Serializable {
 
     @NotBlank(message="秘钥不能为空！")
-//    @Size(min = 8, message = "秘钥长度必须为8的倍数！")
+    @Size(min = 8, max = 8, message = "秘钥长度应为8位！")
     private String key;
 
     @NotNull

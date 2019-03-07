@@ -1,21 +1,13 @@
 package com.qiaohx.encryptapi.model.vo;
 
+import com.qiaohx.encryptutils.util.BaseDataResponse;
+
 /**
  * DES加密结果返回
  */
-public class DesEncryptResponseVo {
+public class DesEncryptResponseVo extends BaseDataResponse {
 
-    private int code;
-    private String errMsg;
     private String content;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
 
     public String getContent() {
         return content;
@@ -25,20 +17,10 @@ public class DesEncryptResponseVo {
         this.content = content;
     }
 
-    public String getErrMsg() {
-        return errMsg;
-    }
-
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
-    }
-
     @Override
     public String toString() {
         return "DesEncryptResponseVo{" +
-                "code=" + code +
-                ", errMsg='" + errMsg + '\'' +
-                ", content='" + content + '\'' +
+                "content='" + content + '\'' +
                 '}';
     }
 }

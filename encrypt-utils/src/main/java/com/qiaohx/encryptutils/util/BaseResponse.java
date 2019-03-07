@@ -4,7 +4,7 @@ package com.qiaohx.encryptutils.util;
  * 基础的返回值
  * @param <T>
  */
-public class BaseResponse<T> {
+public class BaseResponse<T extends BaseDataResponse> {
 
     private int status;
 

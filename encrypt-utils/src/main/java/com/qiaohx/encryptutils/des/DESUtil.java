@@ -18,7 +18,7 @@ public class DESUtil {
     public static void main(String[] args) {
         String content = "DESTest";
         // 密码长度必须是8的倍数
-        String password = "12345678";
+        String password = "1234567a";
         System.out.println("密　钥：" + password);
         System.out.println("加密前：" + content);
         byte[] result = encrypt(content, password);

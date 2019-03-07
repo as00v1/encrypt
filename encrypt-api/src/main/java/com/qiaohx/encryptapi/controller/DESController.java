@@ -7,6 +7,7 @@ import com.qiaohx.encryptutils.util.BaseResponse;
 import com.qiaohx.encryptutils.util.ResponseUtil;
 import net.sf.json.JSONObject;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class DESController {
     @PostMapping(value = "/getValue")
     public BaseResponse getValue(@RequestBody @Valid DesEncryptRequestVo requestStr, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            bindingResult.getFieldError().getDefaultMessage();
+            return ResponseUtil.fail(bindingResult);
         }
         byte[] res = DESUtil.encrypt(requestStr.getContent(), requestStr.getKey());
 
