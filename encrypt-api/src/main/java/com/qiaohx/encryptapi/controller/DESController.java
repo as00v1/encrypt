@@ -6,6 +6,8 @@ import com.qiaohx.encryptutils.des.DESUtil;
 import com.qiaohx.encryptutils.util.BaseResponse;
 import com.qiaohx.encryptutils.util.ResponseUtil;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +22,16 @@ import java.util.Base64;
 @RequestMapping(value = "/des")
 public class DESController {
 
+    private static Logger logger = LoggerFactory.getLogger(DESController.class);
+
     @PostMapping(value = "/getValue")
-    public BaseResponse getValue(@RequestBody @Valid DesEncryptRequestVo requestStr, BindingResult bindingResult){
+    public BaseResponse getValue(@RequestBody @Valid DesEncryptRequestVo desEncryptRequestVo, BindingResult bindingResult){
+
+        logger.info("收到请求:" + desEncryptRequestVo);
         if(bindingResult.hasErrors()){
             return ResponseUtil.fail(bindingResult);
         }
-        byte[] res = DESUtil.encrypt(requestStr.getContent(), requestStr.getKey());
+        byte[] res = DESUtil.encrypt(desEncryptRequestVo.getContent(), desEncryptRequestVo.getKey());
 
         DesEncryptResponseVo desEncryptResponseVo = new DesEncryptResponseVo();
         desEncryptResponseVo.setCode(0);

@@ -23,4 +23,12 @@ public class BaseDataResponse {
     public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;
     }
+
+    @Override
+    public String toString() {
+        return "BaseDataResponse{" +
+                "code=" + code +
+                ", errMsg='" + errMsg + '\'' +
+                '}';
+    }
 }
