@@ -5,6 +5,8 @@ import com.qiaohx.encryptapi.model.vo.DesEncryptResponseVo;
 import com.qiaohx.encryptutils.des.DESUtil;
 import com.qiaohx.encryptutils.util.BaseResponse;
 import com.qiaohx.encryptutils.util.ResponseUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +22,13 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping(value = "/des")
+@Api(description = "DES加密接口")
 public class DESController {
 
     private static Logger logger = LoggerFactory.getLogger(DESController.class);
 
     @PostMapping(value = "/getValue")
+    @ApiOperation("使用秘钥加密字符串")
     public BaseResponse getValue(@RequestBody @Valid DesEncryptRequestVo desEncryptRequestVo, BindingResult bindingResult){
 
         logger.info("收到请求:" + desEncryptRequestVo);

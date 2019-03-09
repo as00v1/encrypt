@@ -1,11 +1,17 @@
 package com.qiaohx.encryptutils.util;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 通用的数据包
  */
+@ApiModel("基本业务参数")
 public class BaseDataResponse {
 
+    @ApiModelProperty(value = "业务编码", required = true)
     private int code;
+    @ApiModelProperty("错误信息")
     private String errMsg;
 
     public int getCode() {
