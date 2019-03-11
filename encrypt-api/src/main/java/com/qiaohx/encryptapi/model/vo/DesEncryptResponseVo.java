@@ -13,6 +13,10 @@ public class DesEncryptResponseVo extends BaseDataResponse {
     @ApiModelProperty("加密结果")
     private String content;
 
+    public DesEncryptResponseVo(int code, String errMsg) {
+        super(code, errMsg);
+    }
+
     public String getContent() {
         return content;
     }

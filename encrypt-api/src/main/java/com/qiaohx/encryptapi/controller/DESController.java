@@ -29,19 +29,17 @@ public class DESController {
 
     @PostMapping(value = "/getValue")
     @ApiOperation("使用秘钥加密字符串")
-    public BaseResponse getValue(@RequestBody @Valid DesEncryptRequestVo desEncryptRequestVo, BindingResult bindingResult){
+    public DesEncryptResponseVo getValue(@RequestBody @Valid DesEncryptRequestVo desEncryptRequestVo, BindingResult bindingResult){
 
         logger.info("收到请求:" + desEncryptRequestVo);
         if(bindingResult.hasErrors()){
-            return ResponseUtil.fail(bindingResult);
+            return ResponseUtil.fail(bindingResult, DesEncryptResponseVo.class);
         }
         byte[] res = DESUtil.encrypt(desEncryptRequestVo.getContent(), desEncryptRequestVo.getKey());
 
-        DesEncryptResponseVo desEncryptResponseVo = new DesEncryptResponseVo();
-        desEncryptResponseVo.setCode(0);
+        DesEncryptResponseVo desEncryptResponseVo = ResponseUtil.success(DesEncryptResponseVo.class);
         desEncryptResponseVo.setContent(new String(Base64.getEncoder().encode(res)));
-        BaseResponse baseResponse = ResponseUtil.success(desEncryptResponseVo);
 
-        return baseResponse;
+        return desEncryptResponseVo;
     }
 }

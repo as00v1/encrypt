@@ -9,6 +9,11 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("基本业务参数")
 public class BaseDataResponse {
 
+    public BaseDataResponse(int code, String errMsg) {
+        this.code = code;
+        this.errMsg = errMsg;
+    }
+
     @ApiModelProperty(value = "业务编码", required = true)
     private int code;
     @ApiModelProperty("错误信息")

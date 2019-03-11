@@ -1,32 +1,23 @@
 package com.qiaohx.encryptutils.util;
 
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * 通用的返回编码
  */
 public class ResponseUtil {
 
+    public static final String SUCCESS = "success";
     /**
      * 请求成功
      * @param o 数据
      * @return
      */
-    public static BaseResponse success(BaseDataResponse o){
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setStatus(200);
-        baseResponse.setMessage("success");
-        baseResponse.setData(o);
-        return baseResponse;
-    }
-
-    /**
-     * 请求成功
-     * @return
-     */
-    public static BaseResponse success(){
-        return success(null);
+    public static <T extends BaseDataResponse> T success(Class<T> o){
+        return result(ErrorCodeEnums.SUCCESS, SUCCESS, o);
     }
 
     /**
@@ -42,42 +33,42 @@ public class ResponseUtil {
         return baseResponse;
     }
 
-    public static BaseResponse fail(BindingResult bindingResult){
+    public static <T extends BaseDataResponse> T fail(BindingResult bindingResult, Class<T> o){
         String code = bindingResult.getFieldError().getCode();
 //        LOGGER.debug("validator error code: {}", code);
         switch (code) {
             case "NotEmpty":
-                return fail(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage(), o);
             case "NotBlank":
-                return fail(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage(), o);
             case "NotNull":
-                return fail(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Pattern":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Min":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Max":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Length":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Range":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Email":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "DecimalMin":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "DecimalMax":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Size":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Digits":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Past":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             case "Future":
-                return fail(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.PARAM_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
             default:
-                return fail(ErrorCodeEnums.UNKNOW_ERROR, bindingResult.getFieldError().getDefaultMessage());
+                return result(ErrorCodeEnums.UNKNOW_ERROR, bindingResult.getFieldError().getDefaultMessage(), o);
         }
     }
 
@@ -87,12 +78,15 @@ public class ResponseUtil {
      * @param message
      * @return
      */
-    public static BaseResponse fail(ErrorCodeEnums errorCode, String message){
-        BaseResponse baseResponse = success();// 请求成功
-        BaseDataResponse baseDataResponse = new BaseDataResponse();
-        baseDataResponse.setCode(errorCode.getCode());
-        baseDataResponse.setErrMsg(message);
-        baseResponse.setData(baseDataResponse);
-        return baseResponse;
+    public static <T extends BaseDataResponse> T result(ErrorCodeEnums errorCode, String message, Class<T> o){
+        T t = null;
+        try {
+            Constructor c = o.getDeclaredConstructor(new Class[]{int.class,String.class});
+            c.setAccessible(true);
+            t = (T) c.newInstance(new Object[]{errorCode.getCode(), message});
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 }
