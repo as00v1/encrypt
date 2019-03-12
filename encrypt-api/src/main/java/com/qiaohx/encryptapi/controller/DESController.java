@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Base64;
@@ -23,6 +20,7 @@ import java.util.Base64;
 @RestController
 @RequestMapping(value = "/des")
 @Api(description = "DES加密接口")
+//@CrossOrigin("http://localhost:8080")
 public class DESController {
 
     private static Logger logger = LoggerFactory.getLogger(DESController.class);
