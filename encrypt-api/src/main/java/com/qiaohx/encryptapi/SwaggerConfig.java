@@ -10,6 +10,9 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+/**
+ * 自动生成API文档的配置
+ */
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     @Bean
@@ -26,9 +29,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 // 标题
-                .title("SpringBoot集成Swagger2")
+                .title("加解密API列表")
                 // 描述
-                .description("这是一篇博客演示")
+                .description("加解密相关接口")
                 // 文档版本
                 .version("1.0.0")
                 .license("Apache License Version 2.0")

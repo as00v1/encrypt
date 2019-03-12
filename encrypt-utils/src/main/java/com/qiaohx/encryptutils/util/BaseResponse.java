@@ -10,6 +10,16 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("基本返回参数")
 public class BaseResponse<T extends BaseDataResponse> {
 
+    public BaseResponse(){
+        super();
+    }
+
+    public BaseResponse(int status, String message, T data){
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
     @ApiModelProperty(value = "请求状态码，成功：200", required = true)
     private int status;
 
