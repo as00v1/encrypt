@@ -1,6 +1,7 @@
 package com.qiaohx.encryptapi;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,6 +14,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 /**
  * 自动生成API文档的配置
  */
+@Configuration
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     @Bean
