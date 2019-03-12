@@ -3,15 +3,12 @@ package com.qiaohx.encryptapi.controller;
 import com.qiaohx.encryptapi.model.vo.DesEncryptRequestVo;
 import com.qiaohx.encryptapi.model.vo.DesEncryptResponseVo;
 import com.qiaohx.encryptutils.des.DESUtil;
-import com.qiaohx.encryptutils.util.BaseResponse;
 import com.qiaohx.encryptutils.util.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,7 +17,6 @@ import java.util.Base64;
 @RestController
 @RequestMapping(value = "/des")
 @Api(description = "DES加密接口")
-//@CrossOrigin("http://localhost:8080")
 public class DESController {
 
     private static Logger logger = LoggerFactory.getLogger(DESController.class);
