@@ -22,20 +22,15 @@ public class ResponseUtil {
 
     /**
      * 请求失败
-     * @param status 状态码
-     * @param message 错误信息
+     * @param errorCode
      * @return
      */
-    public static BaseResponse error(int status, String message){
-        BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setStatus(status);
-        baseResponse.setMessage(message);
-        return baseResponse;
+    public static BaseDataResponse error(ErrorCodeEnums errorCode){
+        return new BaseDataResponse(errorCode.getCode(), errorCode.getMessage());
     }
 
     public static <T extends BaseDataResponse> T fail(BindingResult bindingResult, Class<T> o){
         String code = bindingResult.getFieldError().getCode();
-//        LOGGER.debug("validator error code: {}", code);
         switch (code) {
             case "NotEmpty":
                 return result(ErrorCodeEnums.PARAM_EMPTY, bindingResult.getFieldError().getDefaultMessage(), o);

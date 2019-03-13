@@ -23,10 +23,11 @@ public class DESController {
 
     @PostMapping(value = "/getValue")
     @ApiOperation("使用秘钥加密字符串")
-    public DesEncryptResponseVo getValue(@RequestBody @Valid DesEncryptRequestVo desEncryptRequestVo, BindingResult bindingResult){
+    public DesEncryptResponseVo getValue(@RequestBody @Valid DesEncryptRequestVo desEncryptRequestVo, BindingResult bindingResult) throws Exception {
 
         logger.info("收到请求:" + desEncryptRequestVo);
         if(bindingResult.hasErrors()){
+//            throw new Exception("cccccc");
             return ResponseUtil.fail(bindingResult, DesEncryptResponseVo.class);
         }
         byte[] res = DESUtil.encrypt(desEncryptRequestVo.getContent(), desEncryptRequestVo.getKey());

@@ -52,19 +52,21 @@ public class WebLogAspect {
     public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容
         logger.info("方法返回 : " + ret);
+        String ret1="";
     }
 
     //后置异常通知
     @AfterThrowing("webLog()")
     public void afterThrowing(JoinPoint joinPoint){
         logger.error(DateUtil.dateToStr(DateFormatRules.YYYY_MM_DD_HH_MM_SS) + " ERROR");
-        logger.error("方法跑出异常");
+        logger.error("方法抛出异常");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         logger.error("SESSION_ID : " + request.getSession().getId());
         logger.error("URL : " + request.getRequestURL().toString());
         logger.error("HTTP_METHOD : " + request.getMethod());
         logger.error("IP : " + request.getRemoteAddr());
+        logger.error("REAL IP : " + request.getHeader("X-Real-IP"));
         logger.error("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         logger.error("ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
