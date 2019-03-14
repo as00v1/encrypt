@@ -1,23 +1,17 @@
 package com.qiaohx.encryptapi.aspect;
 
-import com.qiaohx.encryptutils.util.BaseDataResponse;
-import com.qiaohx.encryptutils.util.BaseResponse;
 import com.qiaohx.encryptutils.util.ErrorCodeEnums;
 import com.qiaohx.encryptutils.util.ResponseUtil;
 import com.qiaohx.encryptutils.util.date.DateFormatRules;
 import com.qiaohx.encryptutils.util.date.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 全局HTTP请求异常处理类
