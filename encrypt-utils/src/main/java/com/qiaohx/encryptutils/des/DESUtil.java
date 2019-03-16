@@ -1,6 +1,9 @@
 package com.qiaohx.encryptutils.des;
 
+import com.qiaohx.encryptutils.util.Hex;
+
 import java.security.Key;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -213,27 +216,27 @@ public class DESUtil {
         return sb.toString();
     }
 
-//    public static void main(String[] args) throws Exception {
-//        String keys = "12312312";
-////        byte[] key = initSecretKey();
-//        byte[] key = keys.getBytes();
-////      byte[] key = "12345678".getBytes();
-//        System.out.println("key："+ showByteArray(key));
-//
-//        Key k = toKey(key);
-//
-//        String data ="DES数据";
-//        System.out.println("加密前数据: string:"+data);
-//        System.out.println("加密前数据: byte[]:"+showByteArray(data.getBytes()));
-//        System.out.println();
-//        byte[] encryptData = encrypt(data.getBytes(), k);
-//        System.out.println("加密后数据: byte[]:"+showByteArray(encryptData));
-//        System.out.println("加密后数据: hexStr:"+ Hex.encodeHexStr(encryptData));
-//        System.out.println("加密后数据: base64:"+ new String(Base64.getEncoder().encode(encryptData)));
-//        System.out.println();
-//        byte[] decryptData = decrypt(encryptData, k);
-//        System.out.println("解密后数据: byte[]:"+showByteArray(decryptData));
-//        System.out.println("解密后数据: string:"+new String(decryptData));
-//
-//    }
+    public static void main(String[] args) throws Exception {
+        String keys = "1234567812345678";
+//        byte[] key = initSecretKey();
+        byte[] key = keys.getBytes();
+//      byte[] key = "12345678".getBytes();
+        System.out.println("key："+ showByteArray(key));
+
+        Key k = toKey(key);
+
+        String data ="DES数据";
+        System.out.println("加密前数据: string:"+data);
+        System.out.println("加密前数据: byte[]:"+showByteArray(data.getBytes()));
+        System.out.println();
+        byte[] encryptData = encrypt(data.getBytes(), k);
+        System.out.println("加密后数据: byte[]:"+showByteArray(encryptData));
+        System.out.println("加密后数据: hexStr:"+ Hex.encodeHexStr(encryptData));
+        System.out.println("加密后数据: base64:"+ new String(Base64.getEncoder().encode(encryptData)));
+        System.out.println();
+        byte[] decryptData = decrypt(encryptData, k);
+        System.out.println("解密后数据: byte[]:"+showByteArray(decryptData));
+        System.out.println("解密后数据: string:"+new String(decryptData));
+
+    }
 }  

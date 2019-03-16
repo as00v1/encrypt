@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * DES加密结果返回
  */
-@ApiModel("DES加解密结果")
+@ApiModel("DES&AES加解密结果")
 public class DesEncryptResponseVo extends BaseDataResponse {
 
     @ApiModelProperty("加密/解密结果")

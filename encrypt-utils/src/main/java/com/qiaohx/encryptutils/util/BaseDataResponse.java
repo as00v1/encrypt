@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * 通用的数据包
  */
 @ApiModel("基本业务参数")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BaseDataResponse {
+public class BaseDataResponse implements Serializable {
 
     public BaseDataResponse(int code, String errMsg) {
         this.code = code;
